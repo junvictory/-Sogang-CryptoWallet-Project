@@ -2,21 +2,19 @@ package kr.icclab.kyptowallet
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import cash.z.ecc.android.bip39.Mnemonics
+import cash.z.ecc.android.bip39.toSeed
 import kotlinx.android.synthetic.main.activity_main.*
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameter
 import org.web3j.protocol.core.methods.response.EthGasPrice
 import org.web3j.protocol.core.methods.response.EthGetBalance
 import org.web3j.protocol.http.HttpService
-import java.math.BigInteger
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount
 import org.web3j.protocol.core.methods.response.EthBlockNumber
 import org.web3j.protocol.core.methods.response.EthAccounts
 
+import cash.z.ecc.android.bip39.Mnemonics.MnemonicCode
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 //                        .writeTimeout(100, TimeUnit.SECONDS)
 //                        .build()
 
-    var RPC_Server = "http://192.168.1.5:7545/"
+    var RPC_Server = "http://163.239.24.30:7545/"
     var web3j : Web3j = Web3j.build(HttpService())
 
 
@@ -59,7 +57,17 @@ class MainActivity : AppCompatActivity() {
         textView.text = ethGasPrice.gasPrice.toString()
 
 
+
+        val mnemonicCode: MnemonicCode = MnemonicCode(Mnemonics.WordCount.COUNT_12)
+        val seed: ByteArray = mnemonicCode.toSeed()
+
+        for (word in mnemonicCode) {
+            logRender(word.toString()+"\n")
+        }
+
+
     }
+
 
 
     fun getGas() : EthGasPrice?{
