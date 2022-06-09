@@ -31,10 +31,10 @@
         android:text="getBalanace"
         />
     <Button
-        android:id="@+id/getGas_Button"
+        android:id="@+id/sendBalance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="getGas"
+        android:text="SendBalance"
         />
 
     <Button

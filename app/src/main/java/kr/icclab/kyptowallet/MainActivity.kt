@@ -6,18 +6,25 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import cash.z.ecc.android.bip39.Mnemonics
 import cash.z.ecc.android.bip39.Mnemonics.MnemonicCode
+import cash.z.ecc.android.bip39.toSeed
 import kotlinx.android.synthetic.main.activity_main.*
-import org.web3j.crypto.Credentials
-import org.web3j.crypto.ECKeyPair
-import org.web3j.crypto.Wallet
+import org.json.JSONObject
+import org.web3j.crypto.*
 import org.web3j.protocol.Web3j
+import org.web3j.protocol.Web3jService
+import org.web3j.protocol.admin.Admin
 import org.web3j.protocol.core.DefaultBlockParameter
+import org.web3j.protocol.core.Ethereum
 import org.web3j.protocol.core.RemoteCall
 import org.web3j.protocol.core.methods.response.*
 import org.web3j.protocol.http.HttpService
 import org.web3j.tx.Transfer
 import org.web3j.utils.Convert
 import java.math.BigDecimal
+import java.math.BigInteger
+import java.security.InvalidAlgorithmParameterException
+import java.security.NoSuchAlgorithmException
+import java.security.NoSuchProviderException
 
 
 class MainActivity : AppCompatActivity() {
@@ -27,10 +34,12 @@ class MainActivity : AppCompatActivity() {
 //                        .writeTimeout(100, TimeUnit.SECONDS)
 //                        .build()
 
-    var RPC_Server = "http://163.239.24.30:7545/"
+//    var RPC_Server = "http://192.168.1.5:7545/"
+var RPC_Server = "https://ropsten.infura.io/v3/7fc074a7f7ec42a7a371259cb039ca69"
     var web3j : Web3j = Web3j.build(HttpService())
-    val temp_PRIKey :String = "ea18953de81a4c78a0351b73734650040e3e3b12"
-    val temp_PUBKey : String = "43c11d18292d63f4b13e96dad70d37373e32bc683b715985a5c15e419791d486bb500309ee63643b73e33443b2e45c4a76fa1850e7bb9d0ddb2b8b86930efd56"
+
+    val temp_PRIKey :String = "7179ab4acf2f0b3511beb1be1137587e"
+    val temp_PUBKey : String = "ec4514c866471a5d1ab5e240f7469344aa811236f708b1bbf732060b02677082f2c41d7990960e346e58d664b4cce456b72c8bd3725a612751c285ffce4c27a8"
 //    * CPU/Memory cost parameter. Must be larger than 1, a power of 2 and less than 2^(128 * r / 8).
 //    */
 //    private static final int N = 1 << 9;
@@ -50,19 +59,29 @@ class MainActivity : AppCompatActivity() {
         var versionWeb3j = web3j.web3ClientVersion().sendAsync().get()
         System.out.println(versionWeb3j.web3ClientVersion.toString())
 
+        var account =web3j.ethAccounts().sendAsync().get()
+        Log.e("ACCOUNT",account.accounts.toString())
+
+
 //        WalletUtils.gener
 //        web3j.ethAccounts().jsonr
-        getGas_Button.setOnClickListener {
+        sendBalance.setOnClickListener {
 //            logRender(getGas()?.gasPrice.toString())
-            var crend : Credentials = Credentials.create(temp_PRIKey,temp_PUBKey.toString())
-            sendEth(crend,address_EditText.text.toString(),1.0,0.0f)
+            var crend : Credentials = Credentials.create(temp_PRIKey,temp_PUBKey)
+            sendEth(crend,address_EditText.text.toString(),0.3,0.0f)
+
+
+
         }
+
         getBalance_Button.setOnClickListener {
 
             var getB = getEthBalance(address_EditText.text.toString())
             if (getB != null) {
-//                logRender(getB.balance.toString())
+                logRender(getB.balance.toString())
             }
+
+//            logRender(WalletUtils.isValidPrivateKey(address_EditText.text.toString()).toString())
         }
 
         val ethGasPrice = web3j.ethGasPrice().sendAsync().get()
@@ -74,28 +93,42 @@ class MainActivity : AppCompatActivity() {
         val password = "password"
         createWallet_Button.setOnClickListener {
             val mnemonicCode: MnemonicCode = MnemonicCode(Mnemonics.WordCount.COUNT_12)
-
-
             val seed: ByteArray = mnemonicCode.toEntropy()
             for (word in mnemonicCode) {
                 logRender(word.toString()+"\n")
             }
             val eck: ECKeyPair = ECKeyPair.create(seed)
 
-            val createWallet = Wallet.createLight(password,eck)
-            val creden : Credentials = Credentials.create(createWallet.address)
+
+//            val createWallet = Wallet.createLight(password,eck)
+//            val walletFile : WalletFile = Wallet.createLight(password,eck)
+            Log.e("JSON",process(eck,password).toString())
+//            val creden : Credentials = Credentials.create(eck)
+//            val k = ECKeyPair.create(BigInteger(creden.ecKeyPair.privateKey.toString()))
+//            k.privateKey.toString()
+//            val test = Credentials.create(k)
+
+//
+//            Log.e("Wallet",k.privateKey.toString());
+//            Log.e("Wallet",k.privateKey.toString(16));
 
 
-            logRender(createWallet.address.toString())
-            logRender(creden.address.toString())
-            logRender(creden.ecKeyPair.privateKey.toString())
-            logRender(creden.ecKeyPair.publicKey.toString())
+//            logRender(createWallet.address.toString())
 
-            Log.d("Key",createWallet.address.toString())
-            Log.d("CredenKey",creden.address.toString())
-            Log.d("CredenPrivateKey",creden.ecKeyPair.privateKey.toString(16))
-            Log.d("CredenPublicKey",creden.ecKeyPair.publicKey.toString(16))
-            Log.d("HashKey",hashCode().toString() )
+//            logRender(createWallet.address.toString())
+//            logRender(eck.privateKey.toString(16))
+//            logRender(eck.publicKey.toString(16))
+//
+//            Log.e("Wallet",createWallet.address.toString());
+//            Log.e("Wallet",eck.privateKey.toString(16));
+
+//            logRender(creden.ecKeyPair.publicKey.toString())
+
+//            Log.d("Key",createWallet.address.toString())
+//            Log.d("CredenKey",creden.address.toString())
+//            Log.d("CredenPrivateKey",creden.ecKeyPair.privateKey.toString(16))
+//            Log.d("CredenPublicKey",creden.ecKeyPair.publicKey.toString(16))
+//            Log.d("HashKey",hashCode().toString() )
         //            logRender(eck.privateKey.toString())
 //            val create = Wallet.create(password,eck ,2,1)
 //            logRender(create.address.toString())
@@ -108,6 +141,31 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+
+    private fun process(ecKeyPair: ECKeyPair,password:String): JSONObject? {
+        val processJson = JSONObject()
+        try {
+//            val ecKeyPair = Keys.createEcKeyPair()
+            val privateKeyInDec = ecKeyPair.privateKey
+            val sPrivatekeyInHex = privateKeyInDec.toString(16)
+            val aWallet = Wallet.createLight(password, ecKeyPair)
+            val sAddress = aWallet.address
+//            Sign.SignatureData
+            processJson.put("address", "0x$sAddress")
+            processJson.put("privatekey", sPrivatekeyInHex)
+            processJson.put("publickey", ecKeyPair.publicKey.toString(16))
+
+        } catch (e: CipherException) {
+            //
+        } catch (e: InvalidAlgorithmParameterException) {
+            //
+        } catch (e: NoSuchAlgorithmException) {
+            //
+        } catch (e: NoSuchProviderException) {
+            //
+        }
+        return processJson
     }
 
     //(Web3j web3j,
@@ -123,6 +181,7 @@ class MainActivity : AppCompatActivity() {
 
 
     fun sendEth(credentials: Credentials,withKey: String,withEth: Double, gas : Float) : RemoteCall<TransactionReceipt>? {
+//        WalletUtils.
         val result = Transfer.sendFunds(web3j,credentials,withKey, BigDecimal.valueOf(withEth),Convert.Unit.ETHER)
         result.sendAsync()
         return result
@@ -160,8 +219,8 @@ class MainActivity : AppCompatActivity() {
         return result
     }
 
-    fun getBlockNumber(): EthBlockNumber? {
-        var result: EthBlockNumber? = EthBlockNumber()
+    fun getBlockNumber(): EthBlockNumber {
+        var result: EthBlockNumber = EthBlockNumber()
         result = web3j.ethBlockNumber()
             .sendAsync()
             .get()
