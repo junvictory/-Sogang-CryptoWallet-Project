@@ -23,13 +23,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="로그인"
+            android:text="지갑 재설정"
             android:textSize="45dp"
             android:textColor="#F6DDDD"
             />
     </LinearLayout>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -38,6 +36,32 @@
         android:weightSum="6"
         android:orientation="vertical"
         android:padding="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="니모닉"
+                android:textColor="#FF5C02"
+                />
+            <EditText
+                android:id="@+id/nmemonicEditText"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:background="#75F3D0BD"
+                android:layout_marginTop="5dp"
+                android:textColor="#000000"
+                android:hint="12 code"
+                android:backgroundTint="#F25600"
+                android:textColorHint="#4DF25600"
+                android:gravity="center"
+                android:inputType="textMultiLine"
+                android:textSize="20dp"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,7 +72,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="비밀번호"
+                android:text="새 비밀번호"
                 android:textColor="#FF5C02"
                 />
             <EditText
@@ -61,20 +85,43 @@
                 android:textColorHint="#4DF25600"
                 android:inputType="numberPassword"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="비밀번호 확인"
+                android:textColor="#FF5C02"
+                />
+            <EditText
+                android:id="@+id/passCheckEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="yourpasswd"
+                android:textColor="#F25600"
+                android:backgroundTint="#F25600"
+                android:textColorHint="#4DF25600"
+                android:inputType="numberPassword"/>
+
+        </LinearLayout>
 
         <Button
-            android:id="@+id/loginWalletButton"
+            android:id="@+id/resetWalletButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="로그인"
+            android:text="지갑 재설정"
             android:background="#F25600"
             />
         <TextView
-            android:id="@+id/forgotWalletTextView"
+            android:id="@+id/outWalletTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="ForgotPassword"
+            android:text="취소"
             android:textAlignment="center"
             android:textColor="#F25600"/>
 
