@@ -4,11 +4,21 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.161" />
+        <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/drawable/ic_baseline_arrow_upward_24.xml" value="0.168" />
+        <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/drawable/ic_baseline_compare_arrows_24.xml" value="0.168" />
         <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/drawable/ic_launcher_background.xml" value="0.161" />
         <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/drawable/item_background.xml" value="0.161" />
+        <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/drawable/main_background.xml" value="0.1" />
+        <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/drawable/rectangle_compare_button.xml" value="0.168" />
+        <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/drawable/rectangle_down_button.xml" value="0.168" />
+        <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/drawable/rectangle_up_button.xml" value="0.1675" />
         <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/drawable/round_button.xml" value="0.161" />
-        <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/layout/activity_login.xml" value="0.29270833333333335" />
+        <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/layout/activity_splash.xml" value="0.16302083333333334" />
+        <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/layout/fragment_create_wallet.xml" value="0.18" />
+        <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/layout/fragment_login__wallet.xml" value="0.24739583333333334" />
+        <entry key="..\:/Users/MyeongJoon/Desktop/Dev/[Android]KryptoWallet/KryptoWallet/app/src/main/res/layout/fragment_login_wallet.xml" value="0.24739583333333334" />
         <entry key="..\:/Users/joon/Desktop/Dev/KryptoWallet/app/src/main/res/layout/activity_main.xml" value="0.18297101449275363" />
       </map>
     </option>
@@ -18,5 +28,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.33" />
+      </ProjectState>
+    </option>
   </component>
 </project>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".create_wallet"
+    android:background="@drawable/main_background"
+    android:weightSum="8"
+    android:padding="30dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="KytoWallet"
+            android:textSize="15dp"
+            android:textColor="#BEEFE6E6"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="로그인"
+            android:textSize="45dp"
+            android:textColor="#F6DDDD"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:background="@drawable/item_background"
+        android:weightSum="6"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="비밀번호"
+                android:textColor="#FF5C02"
+                />
+            <EditText
+                android:id="@+id/passEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="yourpasswd"
+                android:textColor="#F25600"
+                android:backgroundTint="#F25600"
+                android:textColorHint="#4DF25600"
+                android:inputType="numberPassword"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/loginWalletButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="로그인"
+            android:background="#F25600"
+            />
+        <TextView
+            android:id="@+id/outWalletTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="취소"
+            android:textAlignment="center"
+            android:textColor="#F25600"/>
+
+    </LinearLayout>
+
+</LinearLayout>
