@@ -1,30 +1,16 @@
 package kr.icclab.kyptowallet
 
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import cash.z.ecc.android.bip39.Mnemonics
-import cash.z.ecc.android.bip39.Mnemonics.MnemonicCode
-import cash.z.ecc.android.bip39.toSeed
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import org.web3j.crypto.*
 import org.web3j.protocol.Web3j
-import org.web3j.protocol.Web3jService
-import org.web3j.protocol.admin.Admin
 import org.web3j.protocol.core.DefaultBlockParameter
-import org.web3j.protocol.core.Ethereum
-import org.web3j.protocol.core.RemoteCall
 import org.web3j.protocol.core.methods.response.*
-import org.web3j.protocol.http.HttpService
-import org.web3j.tx.Transfer
 import org.web3j.utils.Convert
-import java.math.BigDecimal
 import java.math.BigInteger
-import java.security.InvalidAlgorithmParameterException
-import java.security.NoSuchAlgorithmException
-import java.security.NoSuchProviderException
 
 
 class MainActivity : AppCompatActivity() {
@@ -48,9 +34,15 @@ class MainActivity : AppCompatActivity() {
         walletJson = MyApp.prefs.getJson("wallet", JSONObject("{}"))
 //
         var getB = getEthBalance(walletJson!!.get("address").toString())
+
         if (getB != null) {
-            walletBalTextView.text = getB.balance.toString()
+            val wei: BigInteger = getB!!.balance
+            val tokenValue = Convert.fromWei(wei.toString(), Convert.Unit.ETHER)
+            val strTokenAmount = tokenValue.toString()
+
+            walletBalTextView.text = strTokenAmount + " ETH"
         }
+
         Util.Util.CopyClipboard(applicationContext,walletJson!!.get("address").toString())
 
 //        sendButton.setOnClickListener{
