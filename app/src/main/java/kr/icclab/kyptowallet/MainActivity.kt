@@ -1,14 +1,17 @@
 package kr.icclab.kyptowallet
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
-import org.web3j.crypto.*
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameter
-import org.web3j.protocol.core.methods.response.*
+import org.web3j.protocol.core.methods.response.EthAccounts
+import org.web3j.protocol.core.methods.response.EthBlockNumber
+import org.web3j.protocol.core.methods.response.EthGetBalance
+import org.web3j.protocol.core.methods.response.EthGetTransactionCount
 import org.web3j.utils.Convert
 import java.math.BigInteger
 
@@ -43,7 +46,17 @@ class MainActivity : AppCompatActivity() {
             walletBalTextView.text = strTokenAmount + " ETH"
         }
 
-        Util.Util.CopyClipboard(applicationContext,walletJson!!.get("address").toString())
+//        Util.Util.CopyClipboard(applicationContext,walletJson!!.get("address").toString())
+
+        outButton.setOnClickListener{
+            MyApp.prefs.clear()
+
+            val i = baseContext.packageManager
+                .getLaunchIntentForPackage(baseContext.packageName)
+            i!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            finish()
+            startActivity(i)
+        }
 
 //        sendButton.setOnClickListener{
 //        }

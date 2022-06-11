@@ -62,10 +62,9 @@ class reset_wallet : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-
         view.resetWalletButton.setOnClickListener(mClickListener)
+        view.outResetWalletTextView.setOnClickListener(mClickListener)
+
     }
 
 
@@ -78,9 +77,20 @@ class reset_wallet : Fragment() {
                     }else{
                         seed = Mnemonics.MnemonicCode(nmemonicEditText.text.toString()).toEntropy()
 //                        Log.e("mnemonicStr",mnemonicStr.toString())
-
                         createWallet(seed,passEditText.text.toString())
                     }
+                }
+                R.id.outResetWalletTextView->{
+                    var targetFrag : Fragment = login_wallet()
+
+                    if(!MyApp.prefs.getBoolean("check",false)){
+                        targetFrag = intro_wallet()
+                    }
+
+                    val transaction = activity!!.supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.view, targetFrag)
+                    transaction.disallowAddToBackStack()
+                    transaction.commit()
                 }
 
             }

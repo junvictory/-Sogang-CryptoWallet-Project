@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
 
         if(!MyApp.prefs.getBoolean("check",false)){
             supportFragmentManager.beginTransaction()
-                .replace(R.id.view,create_wallet())
+                .replace(R.id.view,intro_wallet())
                 .commit()
         }else{
             supportFragmentManager.beginTransaction()

@@ -29,7 +29,7 @@ class PreferenceUtil(context: Context) {
         prefs.edit().putString(key,jsonObj.toString()).apply()
     }
 
-
-
-
+    fun clear() {
+        prefs.edit().clear().commit()
+    }
 }

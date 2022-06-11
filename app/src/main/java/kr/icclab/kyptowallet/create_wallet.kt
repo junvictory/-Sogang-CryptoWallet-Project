@@ -1,6 +1,5 @@
 package kr.icclab.kyptowallet
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -65,6 +64,7 @@ class create_wallet : Fragment() {
         view.nmemonicTextView.text = mnemonicStr
         view.nmemonicTextView.setOnClickListener(mClickListener)
         view.createWalletButton.setOnClickListener(mClickListener)
+        view.outCreateWalletTextView.setOnClickListener(mClickListener)
     }
 
 
@@ -79,6 +79,13 @@ class create_wallet : Fragment() {
                         createWallet(seed,passEditText.text.toString())
                     }
                 }
+                R.id.outCreateWalletTextView->{
+                    val transaction = activity!!.supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.view, intro_wallet())
+                    transaction.disallowAddToBackStack()
+                    transaction.commit()
+                }
+
 
             }
         }
@@ -92,6 +99,9 @@ class create_wallet : Fragment() {
 
         Log.e("save",MyApp.prefs.getJson("wallet",JSONObject("{}")).toString())
         Toast.makeText(context, "생성완료!", Toast.LENGTH_SHORT).show()
+
+        val intent = Intent(getActivity(), MainActivity::class.java)
+        startActivity(intent)
 
     }
 
