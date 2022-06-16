@@ -42,6 +42,7 @@
         android:orientation="vertical"
         android:gravity="center">
         <TextView
+            android:id="@+id/addressTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="보내실 주소"
@@ -87,6 +88,7 @@
         android:orientation="vertical"
         android:gravity="center">
         <TextView
+            android:id="@+id/gasTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="GAS 금액"

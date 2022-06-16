@@ -7,8 +7,8 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface EtherScanService {
-
-    @GET("api?module=account&action=txlist&startblock=0&endblock=99999999&page=1&offset=10000&sort=asc&apikey=${NetworkConstants.etherscan_api_key}")
+    //Sort = ASC 오름차순 DESC 내림차순
+    @GET("api?module=account&action=txlist&startblock=0&endblock=99999999&page=1&offset=10&sort=desc&apikey=${NetworkConstants.etherscan_api_key}")
     fun getTransactionsForAddress(@Query("address") address: String): Call<SearchResponseDto>
 
 }

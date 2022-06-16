@@ -9,6 +9,13 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="maincolor">#F25600</color>
+    <color name="textcolor">#F25600</color>
+
     <color name="buttoncolor">#61FFFFFF</color>
+
+
+    <color name="WhiteTextColor">#F6DDDD</color>
+    <color name="WhiteTextColor_gray">#BEEFE6E6</color>
+
 
 </resources>

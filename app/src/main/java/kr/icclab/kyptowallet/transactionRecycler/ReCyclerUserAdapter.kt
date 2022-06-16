@@ -4,10 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.kenai.jffi.Main
 import kotlinx.android.synthetic.main.item_recycler.view.*
+import kr.icclab.kyptowallet.MainActivity
 import kr.icclab.kyptowallet.R
-import kotlin.to
+import kr.icclab.kyptowallet.item_view_fragment
 
 class ReCyclerUserAdapter (private val items: ArrayList<UiTransaction>) : RecyclerView.Adapter<ReCyclerUserAdapter.ViewHolder>() {
 
@@ -17,7 +21,13 @@ class ReCyclerUserAdapter (private val items: ArrayList<UiTransaction>) : Recycl
 
         val item = items[position]
         val listener = View.OnClickListener { it ->
-            Toast.makeText(it.context, "Clicked -> ID : ${item.from}, Name : ${item.to}", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(it.context, "Clicked -> ID : ${item.from}, Name : ${item.hash}", Toast.LENGTH_SHORT).show()
+            val appCompatActivity = it.context as AppCompatActivity
+            appCompatActivity.supportFragmentManager.
+            beginTransaction()
+                .replace(R.id.view, item_view_fragment.newInstance(hash = item.hash.toString()))
+                .addToBackStack(null)
+                .commit()
         }
         holder.apply {
             bind(listener, item)
@@ -34,8 +44,17 @@ class ReCyclerUserAdapter (private val items: ArrayList<UiTransaction>) : Recycl
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         private var view: View = v
         fun bind(listener: View.OnClickListener, item: UiTransaction) {
-            view.from.text = item.from
-            view.to.text = item.to
+            var addmul = "- "
+            var drawImage = R.drawable.status_out_button
+            if(item.inout == false){
+                drawImage = R.drawable.status_in_button
+                addmul = "+ "
+            }
+            view.item_etherTextView.text = addmul+item.from
+            view.item_blockTokenTextView.text = item.hash
+            view.item_blockTokenTextView.isSelected =true
+
+            view.item_ImageView.setImageDrawable(ContextCompat.getDrawable(view.context, drawImage))
             view.setOnClickListener(listener)
         }
     }

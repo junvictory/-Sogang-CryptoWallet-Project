@@ -32,31 +32,87 @@ class MainActivity : AppCompatActivity() {
 //                        .readTimeout(100, TimeUnit.SECONDS)
 //                        .writeTimeout(100, TimeUnit.SECONDS)
 //                        .build()
-    val key : String = "0x21ae67b23b004ce1c0aa8fab85135fd0fe70afac"
-    val temp_PRIKey: String = "7179ab4acf2f0b3511beb1be1137587e"
-    val temp_PUBKey: String =
-        "ec4514c866471a5d1ab5e240f7469344aa811236f708b1bbf732060b02677082f2c41d7990960e346e58d664b4cce456b72c8bd3725a612751c285ffce4c27a8"
 
     var web3j: Web3j? = null
     var walletJson: JSONObject? = null
-    private val repository =  null
 
     private var etherScanService : EtherScanService? = null
 
 
-
-
+    var runningFragment : Fragment? = null
+    private var myAddress :String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 //        scope.launch {
 //            getTransactionEtherScan()
 //        }
-        etherScanService = MyApp.etherScanService
-
         walletJson = MyApp.prefs.getJson("wallet", JSONObject("{}"))
 
-        etherScanService!!.getTransactionsForAddress(key).enqueue(object : Callback<SearchResponseDto> {
+        myAddress = walletJson!!.get("address").toString()
+        etherScanService = MyApp.etherScanService
+        loadData()
+
+
+
+        refreshButton.setOnClickListener{
+
+            loadData()
+        }
+
+
+        shareButton.setOnClickListener {
+            runningFragment = share_address()
+
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.view, runningFragment as share_address)
+                .commit()
+
+        }
+        sendButton.setOnClickListener {
+            runningFragment = send_ether()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.view, runningFragment as send_ether)
+                .commit()
+        }
+
+
+
+        outButton.setOnClickListener{
+            Util.Util.CopyClipboard(applicationContext,walletJson!!.get("address").toString())
+//            MyApp.prefs.clear()
+//
+//            val i = baseContext.packageManager
+//                .getLaunchIntentForPackage(baseContext.packageName)
+//            i!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//            finish()
+//            startActivity(i)
+        }
+
+
+//        val ethGasPrice = MyApp.web3j.ethGasPrice().sendAsync().get()
+//        val wei: BigInteger = ethGasPrice.gasPrice
+//        val tokenValue = Convert.fromWei(wei.toString(), Convert.Unit.ETHER)
+//        val gas = tokenValue.toString()
+//        Log.d("GAS",ethGasPrice.gasPrice.toString())
+
+
+
+
+    }
+
+    fun loadData(){
+        var getB = getEthBalance(walletJson!!.get("address").toString())
+        if (getB != null) {
+            val wei: BigInteger = getB!!.balance
+            val tokenValue = Convert.fromWei(wei.toString(), Convert.Unit.ETHER)
+            val strTokenAmount = tokenValue.toString()
+
+            walletBalTextView.text = String.format("%.3f", tokenValue) + " ETH"
+        }
+
+
+        etherScanService!!.getTransactionsForAddress(myAddress).enqueue(object : Callback<SearchResponseDto> {
             override fun onResponse(
                 call: Call<SearchResponseDto>,
                 response: Response<SearchResponseDto>
@@ -65,7 +121,36 @@ class MainActivity : AppCompatActivity() {
                 val list = ArrayList<UiTransaction>()
 
                 for(item in response.body()!!.transactions!!){
-                    list.add(UiTransaction( "1", item.blockHash.toString()))
+                    val etherValue = Convert.fromWei(item.value.toString(), Convert.Unit.ETHER)
+                    var inout = true //in : true , out : false
+                    if(item.from != myAddress){
+                        inout = false
+                    }
+                    list.add(UiTransaction( etherValue.toString() , item.hash.toString(),inout))
+                }
+                for(item in response.body()!!.transactions!!){
+                    val etherValue = Convert.fromWei(item.value.toString(), Convert.Unit.ETHER)
+                    var inout = true //in : true , out : false
+                    if(item.from != myAddress){
+                        inout = false
+                    }
+                    list.add(UiTransaction( etherValue.toString() , item.hash.toString(),inout))
+                }
+                for(item in response.body()!!.transactions!!){
+                    val etherValue = Convert.fromWei(item.value.toString(), Convert.Unit.ETHER)
+                    var inout = true //in : true , out : false
+                    if(item.from != myAddress){
+                        inout = false
+                    }
+                    list.add(UiTransaction( etherValue.toString() , item.hash.toString(),inout))
+                }
+                for(item in response.body()!!.transactions!!){
+                    val etherValue = Convert.fromWei(item.value.toString(), Convert.Unit.ETHER)
+                    var inout = true //in : true , out : false
+                    if(item.from != myAddress){
+                        inout = false
+                    }
+                    list.add(UiTransaction( etherValue.toString() , item.hash.toString(),inout))
                 }
                 val adapter = ReCyclerUserAdapter(list)
                 transactions_recycler_view.adapter = adapter
@@ -74,200 +159,38 @@ class MainActivity : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         })
-
-        shareButton.setOnClickListener {
-
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.view,share_address())
-                .commit()
-
-        }
-        sendButton.setOnClickListener {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.view,send_ether())
-                .commit()
-        }
-
-//        val list = ArrayList<UiTransaction>()
-//        list.add(UiTransaction( "1", "name 1"))
-//        list.add(UiTransaction( "2", "name 2"))
-//        list.add(UiTransaction( "3", "name 3"))
-//        list.add(UiTransaction( "1", "name 1"))
-//        list.add(UiTransaction( "2", "name 2"))
-//        list.add(UiTransaction( "3", "name 3"))
-//        list.add(UiTransaction( "1", "name 1"))
-//        list.add(UiTransaction( "2", "name 2"))
-//        list.add(UiTransaction( "3", "name 3"))
-//        list.add(UiTransaction( "1", "name 1"))
-//        list.add(UiTransaction( "2", "name 2"))
-//        list.add(UiTransaction( "3", "name 3"))
-//
-//        val adapter = ReCyclerUserAdapter(list)
-//        transactions_recycler_view.adapter = adapter
-
-
-//        dto.map{transition->
-//            Log.e("EtherScanService",transition.toString())
-//            Log.e("EtherTranList",transition.transactions!!.get(0).toString())
-////            for(item in transition.transactions!!){
-////                Log.e("list",item.blockHash.toString())
-////            }
-//
-//        }
-
-
-//        var getB = getEthBalance(walletJson!!.get("address").toString())
-        var getB = getEthBalance(key)
-        if (getB != null) {
-            val wei: BigInteger = getB!!.balance
-            val tokenValue = Convert.fromWei(wei.toString(), Convert.Unit.ETHER)
-            val strTokenAmount = tokenValue.toString()
-
-            walletBalTextView.text = strTokenAmount + " ETH"
-        }
-
-//        Util.Util.CopyClipboard(applicationContext,walletJson!!.get("address").toString())
-
-        outButton.setOnClickListener{
-            MyApp.prefs.clear()
-
-            val i = baseContext.packageManager
-                .getLaunchIntentForPackage(baseContext.packageName)
-            i!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            finish()
-            startActivity(i)
-        }
-
-//        sendButton.setOnClickListener{
-//        }
-
-//        WalletUtils.gener
-//        web3j.ethAccounts().jsonr
-//        sendBalance.setOnClickListener {
-////            logRender(getGas()?.gasPrice.toString())
-//            var crend : Credentials = Credentials.create(temp_PRIKey,temp_PUBKey)
-//            sendEth(crend,address_EditText.text.toString(),0.3,0.0f)
-//
-//
-//
-//        }
-
-//        val ethGasPrice = web3j.ethGasPrice().sendAsync().get()
-//        textView.text = ethGasPrice.gasPrice.toString()
-
-
-        //create(String password, ECKeyPair ecKeyPair, int n, int p)
-        //Wallet Create
-//        val password = "password"
-//        createWallet_Button.setOnClickListener {
-//            val mnemonicCode: MnemonicCode = MnemonicCode(Mnemonics.WordCount.COUNT_12)
-//            val seed: ByteArray = mnemonicCode.toEntropy()
-//            for (word in mnemonicCode) {
-//                logRender(word.toString()+"\n")
-//            }
-//            val eck: ECKeyPair = ECKeyPair.create(seed)
-//
-//
-////            val createWallet = Wallet.createLight(password,eck)
-////            val walletFile : WalletFile = Wallet.createLight(password,eck)
-//            Log.e("JSON",process(eck,password).toString())
-////            val creden : Credentials = Credentials.create(eck)
-////            val k = ECKeyPair.create(BigInteger(creden.ecKeyPair.privateKey.toString()))
-////            k.privateKey.toString()
-////            val test = Credentials.create(k)
-//
-////
-////            Log.e("Wallet",k.privateKey.toString());
-////            Log.e("Wallet",k.privateKey.toString(16));
-//
-//
-////            logRender(createWallet.address.toString())
-//
-////            logRender(createWallet.address.toString())
-////            logRender(eck.privateKey.toString(16))
-////            logRender(eck.publicKey.toString(16))
-////
-////            Log.e("Wallet",createWallet.address.toString());
-////            Log.e("Wallet",eck.privateKey.toString(16));
-//
-////            logRender(creden.ecKeyPair.publicKey.toString())
-//
-////            Log.d("Key",createWallet.address.toString())
-////            Log.d("CredenKey",creden.address.toString())
-////            Log.d("CredenPrivateKey",creden.ecKeyPair.privateKey.toString(16))
-////            Log.d("CredenPublicKey",creden.ecKeyPair.publicKey.toString(16))
-////            Log.d("HashKey",hashCode().toString() )
-//        //            logRender(eck.privateKey.toString())
-////            val create = Wallet.create(password,eck ,2,1)
-////            logRender(create.address.toString())
-////            ECKeyPair.create(ByteArray)
-//        }
-//
-//
-//
-//        //MnemonicCode Start
-//
-//
-//
-
-
     }
 
-
-
-//        fun sendEth(
-//            credentials: Credentials,
-//            withKey: String,
-//            withEth: Double,
-//            gas: Float
-//        ): RemoteCall<TransactionReceipt>? {
-////        WalletUtils.
-//            val result = Transfer.sendFunds(
-//                web3j,
-//                credentials,
-//                withKey,
-//                BigDecimal.valueOf(withEth),
-//                Convert.Unit.ETHER
-//            )
-//            result.sendAsync()
-//            return result
-//        }
-
-//        fun getGas(): EthGasPrice? {
-//            val result = EthGasPrice()
-//            web3j!!.ethGasPrice().sendAsync().get()
-//            return result
-//        }
-
-    fun closeFragment(fragment: Fragment){
+    fun closeFragment(){
         Log.e("Call", "Call")
 //        supportFragmentManager.popBackStack()
 
-        supportFragmentManager.beginTransaction().remove(fragment).commit()
+        supportFragmentManager.beginTransaction().remove(runningFragment!!).commit()
+        runningFragment = null
     }
 
-fun getTransactionEtherScan(){
-    etherScanService = MyApp.etherScanService
-
-    walletJson = MyApp.prefs.getJson("wallet", JSONObject("{}"))
-
-    etherScanService!!.getTransactionsForAddress(key).enqueue(object : Callback<SearchResponseDto> {
-        override fun onResponse(
-            call: Call<SearchResponseDto>,
-            response: Response<SearchResponseDto>
-        ) {
-            Log.e("EtherScanData", "etherscan : ${response.body().toString()}")
-
-        }
-
-        override fun onFailure(call: Call<SearchResponseDto>, t: Throwable) {
-            TODO("Not yet implemented")
-        }
-    })
-//    val adapter = TransactionAdapter()
-//    transactions_recycler_view.adapter = adapter
-
-}
+//fun getTransactionEtherScan(){
+//    etherScanService = MyApp.etherScanService
+//
+//    walletJson = MyApp.prefs.getJson("wallet", JSONObject("{}"))
+//
+//    etherScanService!!.getTransactionsForAddress(key).enqueue(object : Callback<SearchResponseDto> {
+//        override fun onResponse(
+//            call: Call<SearchResponseDto>,
+//            response: Response<SearchResponseDto>
+//        ) {
+//            Log.e("EtherScanData", "etherscan : ${response.body().toString()}")
+//
+//        }
+//
+//        override fun onFailure(call: Call<SearchResponseDto>, t: Throwable) {
+//            TODO("Not yet implemented")
+//        }
+//    })
+////    val adapter = TransactionAdapter()
+////    transactions_recycler_view.adapter = adapter
+//
+//}
         fun getEthBalance(str: String): EthGetBalance? {
             val result = MyApp.web3j.ethGetBalance(
                 str,
@@ -275,9 +198,6 @@ fun getTransactionEtherScan(){
             )
                 .sendAsync()
                 .get()
-
-//        val balance: BigInteger = result.balance
-
 
             Log.d("balance", result.balance.toString())
 
@@ -312,9 +232,6 @@ fun getTransactionEtherScan(){
             return result
         }
 
-        fun logRender(str: String) {
-//        log_TextView.append(str)
-        }
     }
 
 
