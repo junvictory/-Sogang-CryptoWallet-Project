@@ -1,12 +1,20 @@
 package kr.icclab.kyptowallet
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.common.BitMatrix
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_create_wallet.*
+import kotlinx.android.synthetic.main.fragment_share_address.*
+import kr.icclab.kyptowallet.databinding.ActivityMainBinding
+import kr.icclab.kyptowallet.databinding.FragmentShareAddressBinding
 import kr.icclab.kyptowallet.network.EtherScanService
 import kr.icclab.kyptowallet.network.models.SearchResponseDto
 import kr.icclab.kyptowallet.transactionRecycler.ReCyclerUserAdapter
@@ -41,12 +49,13 @@ class MainActivity : AppCompatActivity() {
     private val repository =  null
 
     private var etherScanService : EtherScanService? = null
-
+    lateinit var binding: FragmentShareAddressBinding
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = FragmentShareAddressBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
 //        scope.launch {
 //            getTransactionEtherScan()
@@ -75,28 +84,17 @@ class MainActivity : AppCompatActivity() {
         })
 
         shareButton.setOnClickListener {
+
             supportFragmentManager.beginTransaction()
                 .replace(R.id.view,share_address())
                 .commit()
 
         }
-
-//        val list = ArrayList<UiTransaction>()
-//        list.add(UiTransaction( "1", "name 1"))
-//        list.add(UiTransaction( "2", "name 2"))
-//        list.add(UiTransaction( "3", "name 3"))
-//        list.add(UiTransaction( "1", "name 1"))
-//        list.add(UiTransaction( "2", "name 2"))
-//        list.add(UiTransaction( "3", "name 3"))
-//        list.add(UiTransaction( "1", "name 1"))
-//        list.add(UiTransaction( "2", "name 2"))
-//        list.add(UiTransaction( "3", "name 3"))
-//        list.add(UiTransaction( "1", "name 1"))
-//        list.add(UiTransaction( "2", "name 2"))
-//        list.add(UiTransaction( "3", "name 3"))
+//        shareClose.setOnClickListener {
 //
-//        val adapter = ReCyclerUserAdapter(list)
-//        transactions_recycler_view.adapter = adapter
+//        }
+
+
 
 
 //        dto.map{transition->

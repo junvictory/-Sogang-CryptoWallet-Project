@@ -1,10 +1,14 @@
 package kr.icclab.kyptowallet
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.zxing.BarcodeFormat
+import com.journeyapps.barcodescanner.BarcodeEncoder
+import kotlinx.android.synthetic.main.fragment_share_address.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,6 +40,21 @@ class share_address : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_share_address, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        val ImageQRcode = createQRcode("::::121231231")
+        img_qr.setImageBitmap(ImageQRcode)
+    }
+
+    fun createQRcode(address: String): Bitmap {
+        val qrcodeEncoder = BarcodeEncoder()
+        return qrcodeEncoder.encodeBitmap(address, BarcodeFormat.QR_CODE,512,512)
+
+    }
+
 
     companion object {
         /**
