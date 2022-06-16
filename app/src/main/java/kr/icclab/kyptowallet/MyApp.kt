@@ -1,11 +1,11 @@
 package kr.icclab.kyptowallet
 import android.app.Application
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
+import kr.icclab.kyptowallet.di.NetworkModule
+import kr.icclab.kyptowallet.network.EtherScanService
+import okhttp3.OkHttpClient
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
-import java.util.concurrent.CancellationException
 
 class MyApp : Application() {
 
@@ -21,6 +21,8 @@ class MyApp : Application() {
         fun applicationContext() : Context {
             return instance!!.applicationContext
         }
+        var okhttp :OkHttpClient? = null
+        var etherScanService : EtherScanService? = null
     }
 
     override fun onCreate() {
@@ -32,6 +34,9 @@ class MyApp : Application() {
         val context: Context = MyApp.applicationContext()
         prefs = PreferenceUtil(context)
         web3j = Web3j.build(HttpService(RPC_Server))
+        okhttp = NetworkModule().okHttpClient()
+        etherScanService = NetworkModule().getEtherScanService(okhttp!!)
+
 
 //
 //        val intent = Intent(this, LoginActivity::class.java)
