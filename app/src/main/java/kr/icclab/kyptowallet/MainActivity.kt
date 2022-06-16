@@ -3,9 +3,10 @@ package kr.icclab.kyptowallet
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.GlobalScope
+import kotlinx.android.synthetic.main.fragment_create_wallet.*
 import kr.icclab.kyptowallet.network.EtherScanService
 import kr.icclab.kyptowallet.network.models.SearchResponseDto
 import kr.icclab.kyptowallet.transactionRecycler.ReCyclerUserAdapter
@@ -47,7 +48,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val scope = GlobalScope
 //        scope.launch {
 //            getTransactionEtherScan()
 //        }
@@ -73,6 +73,13 @@ class MainActivity : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         })
+
+        shareButton.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.view,share_address())
+                .commit()
+
+        }
 
 //        val list = ArrayList<UiTransaction>()
 //        list.add(UiTransaction( "1", "name 1"))
@@ -198,6 +205,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 
 
 //        fun sendEth(

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:id="@+id/view"
     android:background="@drawable/main_background">
     <LinearLayout
         android:layout_width="match_parent"
@@ -81,11 +82,11 @@
                     android:layout_height="0dp"/>
 
                 <Button
-                    android:id="@+id/compareButton"
+                    android:id="@+id/shareButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/rectangle_compare_button"
+                    android:background="@drawable/rectangle_share_button"
                     />
             </LinearLayout>
         </LinearLayout>
