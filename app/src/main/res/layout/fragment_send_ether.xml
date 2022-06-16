@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="7"
+    android:orientation="vertical"
+    tools:context=".send_ether"
+    android:background="#97FFFFFF">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+<LinearLayout
+    android:layout_weight="5"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:background="@drawable/item_background"
+    android:layout_margin="20dp"
+    android:padding="20dp"
+    android:weightSum="5"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="보내기"
+            android:textColor="#FF5C02"
+            android:textAlignment="center"
+            android:textSize="40dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="보내실 주소"
+            android:textColor="#FF5C02"
+            />
+        <EditText
+            android:id="@+id/sendAddressEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="보내실 주소"
+            android:textColor="#F25600"
+            android:backgroundTint="#F25600"
+            android:textColorHint="#4DF25600"
+            android:inputType="text"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="금액"
+            android:textColor="#FF5C02"
+            />
+        <EditText
+            android:id="@+id/sendEtherEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="금액"
+            android:textColor="#F25600"
+            android:backgroundTint="#F25600"
+            android:textColorHint="#4DF25600"
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GAS 금액"
+            android:textColor="#FF5C02"
+            />
+
+        <SeekBar
+            android:id="@+id/gasCostSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="50"
+            android:progress="20"
+            android:thumbTint="#FF5C02"
+            android:progressTint="#4DF25600"
+            android:layout_marginTop="10dp"
+            />
+    </LinearLayout>
+    <Button
+        android:id="@+id/sendEtherButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="보내기"/>
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="취소하기"/>
+</LinearLayout>
+
+</LinearLayout>

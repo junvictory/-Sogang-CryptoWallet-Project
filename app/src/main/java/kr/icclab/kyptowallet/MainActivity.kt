@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_create_wallet.*
 import kr.icclab.kyptowallet.network.EtherScanService
@@ -75,10 +76,16 @@ class MainActivity : AppCompatActivity() {
         })
 
         shareButton.setOnClickListener {
+
             supportFragmentManager.beginTransaction()
                 .replace(R.id.view,share_address())
                 .commit()
 
+        }
+        sendButton.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.view,send_ether())
+                .commit()
         }
 
 //        val list = ArrayList<UiTransaction>()
@@ -231,6 +238,13 @@ class MainActivity : AppCompatActivity() {
 //            web3j!!.ethGasPrice().sendAsync().get()
 //            return result
 //        }
+
+    fun closeFragment(fragment: Fragment){
+        Log.e("Call", "Call")
+//        supportFragmentManager.popBackStack()
+
+        supportFragmentManager.beginTransaction().remove(fragment).commit()
+    }
 
 fun getTransactionEtherScan(){
     etherScanService = MyApp.etherScanService

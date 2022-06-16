@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:weightSum="7"
+                android:weightSum="5"
                 android:orientation="horizontal">
                 <View
                     android:layout_weight="1"
@@ -69,17 +69,6 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"/>
 
-                <Button
-                    android:id="@+id/buyButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/rectangle_down_button"
-                    />
-                <View
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"/>
 
                 <Button
                     android:id="@+id/shareButton"
