@@ -73,6 +73,7 @@ class share_address : Fragment() {
 
         }
         addressShareButton.setOnClickListener { kakaolink(requireContext())}
+        addressCopyButton.setOnClickListener{ Util.Util.CopyClipboard((activity as MainActivity),key.toString()) }
     }
     fun createQRcode(address: String?): Bitmap {
         val qrcodeEncoder = BarcodeEncoder()
@@ -86,10 +87,10 @@ class share_address : Fragment() {
             content = Content(
                 title = "Kryoto 지갑 주소",
                 description = key,
-                imageUrl = "https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
+                imageUrl = "https://ifh.cc/g/KQpm16.png",
                 link = Link(
-                    webUrl = "https://developers.kakao.com",
-                    mobileWebUrl = "https://developers.kakao.com"
+                    webUrl = "http://icclab.sogang.ac.kr/",
+                    mobileWebUrl = "http://icclab.sogang.ac.kr/"
                 )
             ),
         )

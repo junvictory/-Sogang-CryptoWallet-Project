@@ -3,6 +3,7 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.kakao.sdk.common.util.Utility
 import kr.icclab.kyptowallet.di.NetworkModule
 import kr.icclab.kyptowallet.network.EtherScanService
 import okhttp3.OkHttpClient
@@ -48,7 +49,6 @@ class MyApp : Application() {
 
 
     }
-
 
 
     override fun onCreate() {

@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".share_address">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -12,8 +7,6 @@
         android:weightSum="7"
         android:orientation="vertical"
         tools:context=".share_address"
-
-
         android:background="#97FFFFFF">
         <View
             android:layout_width="match_parent"
@@ -32,15 +25,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="0.5"
-                android:orientation="horizontal"
-                android:gravity="right">
+                android:orientation="vertical"
+                android:layout_gravity="right">
                 <Button
                     android:id="@+id/closeShareButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_baseline_close_24"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/close_button"
                     />
-
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,20 +70,30 @@
                     android:id="@+id/addressTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="wnth"
+                    android:text="#################################"
                     android:textColor="#FF5C02"
+                    android:textSize="14dp"
+                    android:textAlignment="center"
                     />
 
             </LinearLayout>
-
+            <Button
+                android:id="@+id/addressCopyButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/maincolor"
+                android:text="복사하기"/>
             <Button
                 android:id="@+id/addressShareButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="보내기"/>
+                android:layout_marginTop="3dp"
+                android:background="@color/maincolor"
+                android:text="카카오톡 공유하기"/>
+
+
 
         </LinearLayout>
 
     </LinearLayout>
 
-</FrameLayout>

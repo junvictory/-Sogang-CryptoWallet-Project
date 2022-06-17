@@ -47,7 +47,7 @@ class intro_wallet : Fragment() {
         createWalletButton.setOnClickListener (mClickListener)
         resetWalletButton.setOnClickListener (mClickListener)
 
-        Glide.with(this).load(R.raw.ethermove).override(700, 700).into(view.introLogoImage)
+//        Glide.with(this).load(R.raw.ethermove).override(700, 700).into(view.introLogoImage)
 
     }
 

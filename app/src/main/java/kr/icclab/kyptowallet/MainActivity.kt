@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.kakao.sdk.common.util.Utility
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_create_wallet.*
 import kr.icclab.kyptowallet.network.EtherScanService
@@ -33,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 //                        .readTimeout(100, TimeUnit.SECONDS)
 //                        .writeTimeout(100, TimeUnit.SECONDS)
 //                        .build()
-    val key : String = "0x21ae67b23b004ce1c0aa8fab85135fd0fe70afac"
     var web3j: Web3j? = null
     var walletJson: JSONObject? = null
 
@@ -53,7 +53,8 @@ class MainActivity : AppCompatActivity() {
         myAddress = walletJson!!.get("address").toString()
         etherScanService = MyApp.etherScanService
         loadData()
-
+        var keyHash = Utility.getKeyHash(applicationContext)
+        Log.e("hashkey",keyHash)
 
 
         refreshButton.setOnClickListener{
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
 
         shareButton.setOnClickListener {
-            runningFragment = share_address.newInstance(key)
+            runningFragment = share_address.newInstance(myAddress)
 
             supportFragmentManager.beginTransaction()
                 .replace(R.id.view, runningFragment as share_address)
@@ -76,29 +77,6 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.view, runningFragment as send_ether)
                 .commit()
         }
-
-
-
-        outButton.setOnClickListener{
-            Util.Util.CopyClipboard(applicationContext,walletJson!!.get("address").toString())
-//            MyApp.prefs.clear()
-//
-//            val i = baseContext.packageManager
-//                .getLaunchIntentForPackage(baseContext.packageName)
-//            i!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-//            finish()
-//            startActivity(i)
-        }
-
-
-//        val ethGasPrice = MyApp.web3j.ethGasPrice().sendAsync().get()
-//        val wei: BigInteger = ethGasPrice.gasPrice
-//        val tokenValue = Convert.fromWei(wei.toString(), Convert.Unit.ETHER)
-//        val gas = tokenValue.toString()
-//        Log.d("GAS",ethGasPrice.gasPrice.toString())
-
-
-
 
     }
 

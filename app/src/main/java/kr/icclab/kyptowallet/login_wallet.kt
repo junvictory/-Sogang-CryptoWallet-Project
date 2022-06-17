@@ -57,6 +57,8 @@ class login_wallet : Fragment() {
 //                        startActivity(intent)
                         (activity as LoginActivity).MainLoad()
                     }else{
+                        Toast.makeText(context, "비밀번호 오류.", Toast.LENGTH_SHORT).show()
+
                         Log.e("Login","PasswordFail")
                     }
                 }

@@ -62,12 +62,8 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation("com.google.dagger:hilt-android:2.41")
-    implementation "com.kakao.sdk:v2-user:2.10.0" // 카카오 로그인
     implementation "com.kakao.sdk:v2-talk:2.10.0" // 친구, 메시지(카카오톡)
-    implementation "com.kakao.sdk:v2-story:2.10.0" // 카카오스토리
     implementation "com.kakao.sdk:v2-link:2.10.0" // 메시지(카카오톡 공유)
-    implementation "com.kakao.sdk:v2-navi:2.10.0" // 카카오내비
-    implementation "com.kakao.sdk:v2-friend:2.10.0"
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
 //    kapt("com.google.dagger:hilt-android-compiler:2.41")
 }
