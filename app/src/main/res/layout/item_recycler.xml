@@ -26,4 +26,5 @@
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/from"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
