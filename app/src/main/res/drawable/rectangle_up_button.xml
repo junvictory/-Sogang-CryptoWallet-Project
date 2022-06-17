@@ -5,14 +5,14 @@
     <item>
         <shape
             android:shape="oval">
-            <solid android:color="@color/buttoncolor"/>
-            <stroke android:width="0.1dp" android:color="#FFFFFF"/>
+            <solid android:color="@color/maincolor"/>
+            <stroke android:width="0.1dp" android:color="#BAFFFFFF"/>
             <corners
                 android:radius="16dp"/>
         </shape>
         <size
-            android:width="56dp"
-            android:height="56dp" />
+            android:width="40dp"
+            android:height="40dp" />
 
     </item>
 

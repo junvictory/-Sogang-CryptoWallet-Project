@@ -10,6 +10,7 @@
 
     <color name="maincolor">#F25600</color>
     <color name="textcolor">#F25600</color>
+    <color name="presscolor">#FFAD80</color>
 
     <color name="buttoncolor">#61FFFFFF</color>
 

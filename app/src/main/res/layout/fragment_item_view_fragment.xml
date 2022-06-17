@@ -5,20 +5,20 @@
     android:layout_height="match_parent"
     tools:context=".item_view_fragment"
     android:weightSum="10"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/main_background">
 
-<WebView
+    <WebView
     android:id="@+id/item_WebView"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="9"/>
     <Button
-        android:id="@+id/itemViewBackButton"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="돌아가기"
-        android:background="@color/maincolor"
-        android:layout_margin="2dp"/>
+    android:id="@+id/itemViewBackButton"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:text="돌아가기"
+    android:layout_margin="2dp"/>
 
 </LinearLayout>

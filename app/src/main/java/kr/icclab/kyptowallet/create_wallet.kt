@@ -99,9 +99,9 @@ class create_wallet : Fragment() {
 
         Log.e("save",MyApp.prefs.getJson("wallet",JSONObject("{}")).toString())
         Toast.makeText(context, "생성완료!", Toast.LENGTH_SHORT).show()
+        (activity as LoginActivity).MainLoad()
 
-        val intent = Intent(getActivity(), MainActivity::class.java)
-        startActivity(intent)
+
 
     }
 

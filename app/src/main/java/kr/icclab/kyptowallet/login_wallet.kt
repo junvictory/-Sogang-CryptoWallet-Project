@@ -1,5 +1,7 @@
 package kr.icclab.kyptowallet
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -41,14 +43,19 @@ class login_wallet : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loginWalletButton.setOnClickListener (mClickListener)
         forgotWalletTextView.setOnClickListener (mClickListener)
+        removeWalletTextView.setOnClickListener(mClickListener)
     }
+
+
+
     val mClickListener :View.OnClickListener = object : View.OnClickListener{
         override fun onClick(v: View?) {
             when(v?.id){
                 R.id.loginWalletButton ->{
                     if(passEditText.text.toString().equals(MyApp.prefs.getString("password","").toString())){
-                        val intent = Intent(getActivity(), MainActivity::class.java)
-                        startActivity(intent)
+//                        val intent = Intent(getActivity(), MainActivity::class.java)
+//                        startActivity(intent)
+                        (activity as LoginActivity).MainLoad()
                     }else{
                         Log.e("Login","PasswordFail")
                     }
@@ -58,6 +65,24 @@ class login_wallet : Fragment() {
                     transaction.replace(R.id.view, reset_wallet())
                     transaction.disallowAddToBackStack()
                     transaction.commit()
+                }
+                R.id.removeWalletTextView->{
+                        val builder = AlertDialog.Builder(activity)
+                        builder.setTitle("Krypto Wallet")
+                            .setMessage("지갑을 지우시겠습니까?")
+                            .setPositiveButton("확인",
+                                DialogInterface.OnClickListener { dialog, id ->
+                                        MyApp.prefs.clear()
+
+                                        val transaction = activity!!.supportFragmentManager.beginTransaction()
+                                        transaction.replace(R.id.view, intro_wallet())
+                                        transaction.disallowAddToBackStack()
+                                        transaction.commit()
+                                })
+                            .setNegativeButton("취소",
+                                DialogInterface.OnClickListener { dialog, id ->
+                                })
+                        builder.show()
                 }
             }
         }

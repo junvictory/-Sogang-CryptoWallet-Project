@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -102,7 +103,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun loadData(){
-        var getB = getEthBalance(walletJson!!.get("address").toString())
+        var getB = MyApp.getEthBalance(walletJson!!.get("address").toString())
         if (getB != null) {
             val wei: BigInteger = getB!!.balance
             val tokenValue = Convert.fromWei(wei.toString(), Convert.Unit.ETHER)
@@ -128,30 +129,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     list.add(UiTransaction( etherValue.toString() , item.hash.toString(),inout))
                 }
-                for(item in response.body()!!.transactions!!){
-                    val etherValue = Convert.fromWei(item.value.toString(), Convert.Unit.ETHER)
-                    var inout = true //in : true , out : false
-                    if(item.from != myAddress){
-                        inout = false
-                    }
-                    list.add(UiTransaction( etherValue.toString() , item.hash.toString(),inout))
-                }
-                for(item in response.body()!!.transactions!!){
-                    val etherValue = Convert.fromWei(item.value.toString(), Convert.Unit.ETHER)
-                    var inout = true //in : true , out : false
-                    if(item.from != myAddress){
-                        inout = false
-                    }
-                    list.add(UiTransaction( etherValue.toString() , item.hash.toString(),inout))
-                }
-                for(item in response.body()!!.transactions!!){
-                    val etherValue = Convert.fromWei(item.value.toString(), Convert.Unit.ETHER)
-                    var inout = true //in : true , out : false
-                    if(item.from != myAddress){
-                        inout = false
-                    }
-                    list.add(UiTransaction( etherValue.toString() , item.hash.toString(),inout))
-                }
+
                 val adapter = ReCyclerUserAdapter(list)
                 transactions_recycler_view.adapter = adapter
             }
@@ -191,18 +169,6 @@ class MainActivity : AppCompatActivity() {
 ////    transactions_recycler_view.adapter = adapter
 //
 //}
-        fun getEthBalance(str: String): EthGetBalance? {
-            val result = MyApp.web3j.ethGetBalance(
-                str,
-                DefaultBlockParameter.valueOf("latest")
-            )
-                .sendAsync()
-                .get()
-
-            Log.d("balance", result.balance.toString())
-
-            return result
-        }
 
         fun getTransactionCount(str: String): EthGetTransactionCount? {
             var result: EthGetTransactionCount? = EthGetTransactionCount()
@@ -232,6 +198,22 @@ class MainActivity : AppCompatActivity() {
             return result
         }
 
+    override fun onBackPressed() {
+        if(supportFragmentManager.backStackEntryCount == 0) {
+            var tempTime = System.currentTimeMillis();
+            var intervalTime = tempTime - MyApp.backPressedTime;
+            if (0 <= intervalTime && MyApp.FINISH_INTERVAL_TIME >= intervalTime) {
+                super.onBackPressed();
+            } else {
+                MyApp.backPressedTime = tempTime;
+                Toast.makeText(this, "'뒤로' 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+                return
+            }
+        }
+        super.onBackPressed();
     }
+
+
+}
 
 

@@ -76,7 +76,6 @@ class reset_wallet : Fragment() {
                         Toast.makeText(view!!.context, "비밀번호를 확인해 주세요", Toast.LENGTH_SHORT).show()
                     }else{
                         seed = Mnemonics.MnemonicCode(nmemonicEditText.text.toString()).toEntropy()
-//                        Log.e("mnemonicStr",mnemonicStr.toString())
                         createWallet(seed,passEditText.text.toString())
                     }
                 }
@@ -105,9 +104,9 @@ class reset_wallet : Fragment() {
 
         Log.e("save",createWalletProcess(eck,password).toString())
         Toast.makeText(context, "재설정 완료!", Toast.LENGTH_SHORT).show()
-        
-        val intent = Intent(getActivity(), MainActivity::class.java)
-        startActivity(intent)
+
+        (activity as LoginActivity).MainLoad()
+
     }
 
 

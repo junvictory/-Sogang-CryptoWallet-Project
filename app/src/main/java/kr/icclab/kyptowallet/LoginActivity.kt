@@ -1,8 +1,10 @@
 package kr.icclab.kyptowallet
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import kr.icclab.kyptowallet.MyApp.Companion.web3j
 
 class LoginActivity : AppCompatActivity() {
@@ -27,5 +29,25 @@ class LoginActivity : AppCompatActivity() {
                 .commit()
         }
 
+    }
+    fun MainLoad(){
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        startActivity(intent)
+
+        finish()
+    }
+    override fun onBackPressed() {
+        if(supportFragmentManager.backStackEntryCount == 0) {
+            var tempTime = System.currentTimeMillis();
+            var intervalTime = tempTime - MyApp.backPressedTime;
+            if (0 <= intervalTime && MyApp.FINISH_INTERVAL_TIME >= intervalTime) {
+                super.onBackPressed();
+            } else {
+                MyApp.backPressedTime = tempTime;
+                Toast.makeText(this, "'뒤로' 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+                return
+            }
+        }
+        super.onBackPressed();
     }
 }
