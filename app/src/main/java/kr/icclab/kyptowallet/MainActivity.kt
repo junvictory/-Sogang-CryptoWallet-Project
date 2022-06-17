@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 //                        .readTimeout(100, TimeUnit.SECONDS)
 //                        .writeTimeout(100, TimeUnit.SECONDS)
 //                        .build()
-
+    val key : String = "0x21ae67b23b004ce1c0aa8fab85135fd0fe70afac"
     var web3j: Web3j? = null
     var walletJson: JSONObject? = null
 
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
 
         shareButton.setOnClickListener {
-            runningFragment = share_address()
+            runningFragment = share_address.newInstance(key)
 
             supportFragmentManager.beginTransaction()
                 .replace(R.id.view, runningFragment as share_address)
