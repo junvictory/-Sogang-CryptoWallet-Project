@@ -3,6 +3,7 @@ package kr.icclab.kyptowallet
 import android.content.ActivityNotFoundException
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
@@ -32,10 +33,12 @@ private const val ARG_PARAM2 = "param2"
 class share_address : Fragment() {
     // TODO: Rename and change types of parameters
     private var key: String? = null
-//    lateinit var mainActivity: MainActivity
+   // lateinit var mainActivity: MainActivity
+
 //    override fun onAttach(context: Context) {
 //        super.onAttach(context)
 //        mainActivity = context as MainActivity
+//
 //    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +52,7 @@ class share_address : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_share_address, container, false)
     }
@@ -61,10 +65,12 @@ class share_address : Fragment() {
             img_qr.setImageBitmap(ImageQRcode)
         }
         closeShareButton.setOnClickListener {
+
             activity?.supportFragmentManager
                 ?.beginTransaction()
                 ?.remove(this)
                 ?.commit()
+
         }
         addressShareButton.setOnClickListener { kakaolink(requireContext())}
     }

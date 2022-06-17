@@ -1,6 +1,7 @@
 package kr.icclab.kyptowallet
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.math.BigInteger
 import com.kakao.sdk.common.util.Utility
+import com.kenai.jffi.Main
 
 class MainActivity : AppCompatActivity() {
 //    val okHttpClient = OkHttpClient.Builder()
@@ -44,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     private val repository =  null
 
     private var etherScanService : EtherScanService? = null
+
 
 
 
@@ -81,11 +84,11 @@ class MainActivity : AppCompatActivity() {
 
         shareButton.setOnClickListener {
 
-
             supportFragmentManager.beginTransaction()
                 .replace(R.id.view,share_address.newInstance(key))
                 .commit()
 
+//            packageManager.setComponentEnabledSetting(componentName,PackageManager.COMPONENT_ENABLED_STATE_DISABLED,0)
         }
 //        shareClose.setOnClickListener {
 //

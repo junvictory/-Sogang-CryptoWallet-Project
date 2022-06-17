@@ -10,7 +10,9 @@
             android:weightSum="7"
             android:orientation="vertical"
             tools:context=".share_address"
-            android:background="#97FFFFFF">
+
+
+           android:background="#97FFFFFF">
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
